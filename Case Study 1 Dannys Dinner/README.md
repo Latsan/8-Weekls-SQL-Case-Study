@@ -144,7 +144,7 @@ WHERE _rank = 1
 ```
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/3cdd7913-e6b9-44b8-9cba-a813b06ea3ec)
 
-8. What is the total items and amount spent for each member before they became a member?
+8. What is the total items and amount spent by each customer before they became a member?
 ```
 SELECT
 	customer_id,
@@ -167,7 +167,8 @@ GROUP BY 1
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/77db6159-6115-4805-b57b-3a0406381a1c)
 
 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier — how many points would each customer have?
-For question number 9, I will find calculate the point danny's customer had before becoming a member, after becoming a member and the whole customers points
+
+- For question number 9, I will first calculate the point danny's customer had before becoming a member, after becoming a member and the whole customers points
 - Before becoming a member
 ```
 WITH 
