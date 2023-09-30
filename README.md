@@ -8,6 +8,6 @@ I'm creating this repository to show my solution participating in a SQL challeng
 - [Case Study #5 Data Mart](https://github.com/Latsan/8-Weekls-SQL-Case-Study/tree/main/Case%20Study%205%20Data%20Mart)
 - [Case Study #6 Clique Bait](https://github.com/Latsan/8-Weekls-SQL-Case-Study/tree/main/Case%20Study%206%20Clique%20Bait)
 - [Case Study #7 Balanced Tree](https://github.com/Latsan/8-Weekls-SQL-Case-Study/tree/main/Case%20Study%207%20Balanced%20Tree%20Clothing%20Co.)
-- [Case Study #8 Fresh Segements]
+- [Case Study #8 Fresh Segements](https://github.com/Latsan/8-Weekls-SQL-Case-Study/tree/main/Case%20Study%208%20Fresh%20Segements)
 
 Thank you for coming
