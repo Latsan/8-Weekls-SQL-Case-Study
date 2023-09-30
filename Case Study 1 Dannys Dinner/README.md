@@ -251,6 +251,38 @@ GROUP BY 1
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/f930454b-ca9d-4d35-817f-073bc89bb652)
 
 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi — how many points do customer A and B have at the end of January?
+ ```
+    WITH 
+	date_cte as
+	(
+	  SELECT 
+		members.customer_id,
+		join_date,
+		join_date + 6 AS Valid_date,
+		'2021-01-31'::date as last_date
+	FROM dannys_diner.members
+	)
+	SELECT sales.customer_id,
+		sum(CASE
+			WHEN menu.product_name = 'sushi' THEN menu.price*10*2
+			when sales.order_date BETWEEN join_date AND valid_date THEN menu.price*10*2
+			ELSE 10*price
+		end ) as points,
+		sum(price*20) as point
+	FROM dannys_diner.sales
+	JOIN date_cte on sales.customer_id = date_cte.customer_id
+	and join_date <= order_date
+	and last_date >= order_date
+	JOIN dannys_diner.menu 
+	on menu.product_id = sales.product_id
+	GROUP BY 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/040a4030-f238-453b-8927-ee6f2cca1f00)
+
+- Base on the last question giving 20 points to each $ spend on all items for the first week after joining the restutant, then 20 points on each $ spent on `sushi` and 10 points each $ spent on other items from the store after the first of thier purchase.
+- Customer with id `A` has 1020 points
+- Customer with id `B` has 320 points
+
 
 
 
