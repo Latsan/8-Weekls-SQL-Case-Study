@@ -137,8 +137,87 @@ group by 1,2
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/566395f1-ea44-4305-971c-64701f974316)
 - Vegetarian has been deliver 3 times with id `2`
 - Meatlovers has been delivered 9 times with id `1`
- 
-   
 
+
+5. How many Vegetarian and Meatlovers were ordered by each customer?
+```
+SELECT customer_orders.customer_id,
+	pizza_names.pizza_name,
+	count(*) as pizza_cnt
+FROM pizza_runner.customer_orders
+JOIN runner_orders_temp USING (order_id)
+JOIN pizza_runner.pizza_names on pizza_names.pizza_id = customer_orders.pizza_id
+--where distance >= 1
+group by 1,2
+order by 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/2edcca30-6f9e-49be-92eb-edc78960aa79)
+
+- Customer with id `101` ordered `2 Meatlovers`
+- Customer with id `101` ordered `1 Vegetarians`
+- Customer with id `102` ordered `2 Meatlovers`
+- Customer with id `102` ordered `1 Vegetarians`
+- Customer with id `103` ordered `3 Meatlovers`
+- Customer with id `103` ordered `1 Vegetarians`
+- Customer with id `104` ordered `3 Meatlovers`
+- Customer with id `105` ordered `1 Vegetarians`
+
+
+6. What was the maximum number of pizzas delivered in a single order?
+```
+SELECT
+	order_id,
+	count(pizza_id) as pizza_count
+FROM runner_orders_temp
+JOIN pizza_runner.customer_orders USING(order_id)
+WHERE distance > 0 
+GROUP BY 1
+order by 2 DESC
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/1fad4ffe-a210-4128-8e03-6a76b50b10a9)
+- order_id 4 has the highest number of pizza delivered
+
+7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
+```
+SELECT
+	customer_id,
+	CASE
+		WHEN exclusions <> '' OR extras <> '' THEN 'pizza_order_change'
+		ELSE 'no_change'
+	END as pizza_cahnge_type,
+	COUNT(CASE
+			WHEN exclusions <> '' OR extras <> '' THEN 'pizza_order_change'
+			ELSE 'no_change'
+		END) as pizza_cahnge_count
+FROM pizza_runner.customer_orders
+GROUP BY 1 , 2
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/39608367-1adb-425b-b01d-b7fac8eecf3f)
+- Pizza id `101` has 3 orders and all the orders has no `extras` or `exclusions`
+- Pizza id `102` also has 3 orders and all the orders has no `extras` or `exclusions`
+- Pizza id `103` has 4 orders and all the orders has either an `extras` or an `exclusions`
+- Pizza id `104` has 3 orders and 2 of the orders has either a change in their `extras` or `exclusions` and 1 order has no `extras` or `exclusions`
+
+8. How many pizzas were delivered that had both exclusions and extras?
+```
+select
+	count(*)
+	FROM(
+		SELECT
+			pizza_id,
+			CASE
+				WHEN exclusions <> '' and extras <> '' THEN 'pizza_order_change'
+				ELSE 'no_change'
+			END as pizza_change_type
+		FROM pizza_runner.customer_orders
+		JOIN runner_orders_temp USING (order_id)
+		where distance > 0
+		)
+	WHERE pizza_change_type = 'pizza_order_change'
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/5855b384-3ba6-4fc7-8114-ba57efb26c72)
+- Only 1 order was delivered successfully and has both exclusions and extras
+
+9. What was the total volume of pizzas ordered for each hour of the day?
 
 
