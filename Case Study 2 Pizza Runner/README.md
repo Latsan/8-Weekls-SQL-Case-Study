@@ -219,5 +219,36 @@ select
 - Only 1 order was delivered successfully and has both exclusions and extras
 
 9. What was the total volume of pizzas ordered for each hour of the day?
+```
+SELECT 
+	date_part('hour',order_time) as _date,
+	COUNT(order_id) as order_count
+FROM pizza_runner.customer_orders
+group by 1 
+order by 2 desc
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/f90783f9-9827-4086-9efe-ff3471184c00)
+
+10. What was the volume of orders for each day of the week?
+```
+SELECT
+    TO_CHAR(order_time, 'Day') AS day_of_week,
+    COUNT(order_id) AS order_count
+FROM pizza_runner.customer_orders
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/84075145-6fa5-4e97-bd14-2133a924465b)
+- `Saturday` & `Wednesday` is the day with highest pizza delivered
+
+
+# B. Runner and Customer Experience
+
+
+
+
+
+
+
 
 
