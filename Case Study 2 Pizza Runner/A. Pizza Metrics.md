@@ -242,8 +242,6 @@ ORDER BY 2 DESC;
 - `Saturday` & `Wednesday` is the day with highest pizza delivered
 
 
-# B. Runner and Customer Experience
-1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
 
 
 
