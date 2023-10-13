@@ -46,4 +46,125 @@ Serious SQL students will have access to the same relevant schema SQL and exampl
 ## Case Study Questions
 This case study is split into an initial data understanding question before diving straight into data analysis questions before finishing with 1 single extension challenge.
 
+## A. Customer Journey
+Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about each customer’s onboarding journey.
+
+Try to keep it as short as possible - you may also want to run some sort of join to make your explanations a bit easier!
+
+---
+- This Case study has 2 tables located in the `foodie_fi` schema
+- I joined the two tables with the primary key together to have a view of what's going both tables
+- I counted to total numbers of customers that has patronised `foodie_fi`
+```
+SELECT COUNT(DISTINCT customer_id) 
+FROM foodie_fi.subscriptions
+JOIN foodie_fi.plans USING(plan_id)
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/62202455-de83-40d9-b38c-7f571c542836)
+- The dataset has 1000 customers that has subscriped to `foodie_fi` platform whether they used the `trial` plan , `basic monthly` plan, `pro monthly` plan, `pro annual` plan or they have `churn` their subscrptions.
+
+```
+SELECT *
+FROM (
+	SELECT *,
+		row_number(*) OVER (PARTITION BY customer_id ORDER BY start_date) AS _rank
+	FROM foodie_fi.subscriptions
+	JOIN foodie_fi.plans USING(plan_id)
+	)
+WHERE _rank = 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/fc4a2b01-53f8-40e2-84bc-575b28853555)
+- From the dataset, we could see that every customers started with a free trail i.e there was no customer that paid for a premium plan 
+
+```
+SELECT plan_name,
+	count(*)
+FROM (
+	SELECT *,
+		row_number(*) OVER (PARTITION BY customer_id ORDER BY start_date) AS _rank
+	FROM foodie_fi.subscriptions
+	JOIN foodie_fi.plans USING(plan_id)
+	)
+WHERE _rank = 2
+Group by 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/43e3575c-5df6-4e83-9915-ec1aaf444212)
+I disoveed the following checking for the customer next activities after using thier free trial and found out that 
+
+- 546 customers subscribed for the `Basic monthly` plan
+- 325 customers subscribed for the `Pro monthly` plan
+- 37 customers subscribed for the `Pro annual` plan
+- 92 customers churn their subscription
+
+Hence we can say that `90.8%` customers subscribed to a plan after the free 7 days trial which is a good starting
+
+---
+Analysing we further, 37 customers subscribed for the `Pro annual` plan so we don't need to worry much about them again, we only need to ensure that they are getting the quality content of what they paid.
+- Hence we want to focus on the remainng **963** customers
+
+```
+SELECT plan_name,
+	count(*)
+FROM (
+	SELECT *,
+		row_number(*) OVER (PARTITION BY customer_id ORDER BY start_date) AS _rank
+	FROM foodie_fi.subscriptions
+	JOIN foodie_fi.plans USING(plan_id)
+	)
+WHERE _rank = 3
+Group by 1
+```
+- 214 customers subscribed for the `Pro monthly` plan
+- 186 customers subscribed for the `Pro annual` plan
+- 170 customers churn their subscription
+
+From this stats, we could say that people don't really enjoy the basic plan as they have limited access and can only stream videos, hence no customer subscribed for the plan this time around.
+- 400 customers subscribed out of 963
+- 186 pro annual plan making 223 annual pro plan. Foodie_fi is improving
+- After the third check only 437 customers has an ongoing subscription plan which means 563 customers has checked out.
+
+
+---
+Let's go for a fianl check
+```
+SELECT plan_name,
+	count(*)
+FROM (
+	SELECT *,
+		row_number(*) OVER (PARTITION BY customer_id ORDER BY start_date) AS _rank
+	FROM foodie_fi.subscriptions
+	JOIN foodie_fi.plans USING(plan_id)
+	)
+WHERE _rank = 4
+Group by 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/bfab215d-ca21-4d59-b56f-32ec6067840d)
+
+- 45 customers joined the annual plan and sofar we have 268 customers has an annual plan
+
+
+## B. Data Analysis Questions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
