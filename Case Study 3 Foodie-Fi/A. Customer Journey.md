@@ -143,7 +143,7 @@ Group by 1
 - 45 customers joined the annual plan and sofar we have 268 customers has an annual plan
 
 
-## B. Data Analysis Questions
+## [B. Data Analysis Questions](https://github.com/Latsan/8-Weekls-SQL-Case-Study/blob/main/Case%20Study%203%20Foodie-Fi/B.%20Data%20Analysis%20Questions.md)https://github.com/Latsan/8-Weekls-SQL-Case-Study/blob/main/Case%20Study%203%20Foodie-Fi/B.%20Data%20Analysis%20Questions.md)
 
 
 
