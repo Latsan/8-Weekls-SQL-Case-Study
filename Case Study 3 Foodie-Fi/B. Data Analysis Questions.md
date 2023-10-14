@@ -97,11 +97,56 @@ GROUP BY 1,2
 
 ### 7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
 
+```
+SELECT plan_id,
+	count(*),
+	CONCAT(100* COUNT(*)/(SELECT COUNT(DISTINCT customer_id) FROM foodie_fi.subscriptions),'%') as "%_count"
+FROM(
 
+	SELECT customer_id,
+		plan_id,
+		LEAD(plan_id) OVER (PARTITION BY customer_id ORDER BY start_date) as next_date
+	FROM foodie_fi.subscriptions
+	WHERE start_date <= '2020-12-31'
+	)
+WHERE next_date IS NULL
+GROUP BY 1
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/5ad8d244-828e-43c8-85f5-4827fa863db2)
 
+### 8. How many customers have upgraded to an annual plan in 2020?
 
+```
+SELECT COUNT(DISTINCT customer_id)
+FROM foodie_fi.subscriptions
+WHERE start_date BETWEEN '2020-01-01' AND '2020-12-31'
+	AND plan_id = 3
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/fe0d0b49-7562-4ade-a08f-99cfa5c9e0fd)
+- 195 customers upgraded to a `pro annual plan` in the yeal 2020
 
+### 9.How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+- I calculated the numbers of users with `trial` subscription in a CTE, I also calculated for `annual` subscription and I subtracted the diffrence between the two CTEs and then find the average
+```
+WITH 
+	trial as(
+		SELECT *
+		FROM foodie_fi.subscriptions
+		WHERE plan_id = 0
+),
+annual as(
+	SELECT *
+	FROM foodie_fi.subscriptions
+	WHERE plan_id = 3
+)
+SELECT 
+	ROUND(AVG(annual.start_date - trial.start_date))
+FROM trial
+JOIN annual USING (customer_id)
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/5e7197b8-7fc0-49a2-a725-a1756ca3f101)
 
+### 10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
 
 
 
