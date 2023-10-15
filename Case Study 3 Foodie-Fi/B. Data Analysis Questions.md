@@ -178,7 +178,24 @@ order by width
 
 ### 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
+```
+SELECT *
+FROM
+(
+SELECT *,
+		LEAD(plan_id) OVER(PARTITION BY customer_id ORDER BY start_date) AS next_date
+	FROM foodie_fi.subscriptions
+	JOIN foodie_fi.plans USING(plan_id)
+	WHERE date_part('year',start_date) = 2020
+	order by 2 
+	)
+WHERE next_date = 1 and plan_id = 2
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/f079cc80-21d3-45e0-9a34-171c24aa1519)
 
+- In 2020, there was no scenario where any customer demoted from pro monthly to basic monthly plan
+
+  ## Thank you 
 
 
 
