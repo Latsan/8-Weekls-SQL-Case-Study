@@ -147,9 +147,36 @@ JOIN annual USING (customer_id)
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/5e7197b8-7fc0-49a2-a725-a1756ca3f101)
 
 ### 10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
+- To get this solved, I introduce a function called `WIDTH_BUCKET` to help be calculate the width bucket of number of days in 30 days interval
+```
+WITH 
+	trial as(
+		SELECT *
+		FROM foodie_fi.subscriptions
+		WHERE plan_id = 0
+),
+annual as(
+	SELECT *
+	FROM foodie_fi.subscriptions
+	WHERE plan_id = 3
+),
+bins AS (
+	SELECT WIDTH_BUCKET(annual.start_date - trial.start_date,0,365,12) as width
+	FROM trial
+	JOIN annual USING(customer_id)
+	
+)
 
+SELECT 
+	CONCAT((width - 1 ) * 30 || ' - ', width * 30 || ' days') as width_class,
+	COUNT(*)
+FROM bins
+GROUP BY width
+order by width
+```
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/370918ab-3436-428b-b96e-e858e3c540b4)
 
-
+### 11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
 
 
