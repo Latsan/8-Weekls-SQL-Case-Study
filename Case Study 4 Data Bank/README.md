@@ -20,3 +20,26 @@ This case study is all about calculating metrics, growth and helping the busines
 The Data Bank team have prepared a data model for this case study as well as a few example rows from the complete dataset below to get you familiar with their tables.
 
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/29040c8a-de4c-47b7-8463-5916640bdf79)
+
+## Table 1: Regions
+
+Just like popular cryptocurrency platforms - Data Bank is also run off a network of nodes where both money and data is stored across the globe. In a traditional banking sense - you can think of these nodes as bank branches or stores that exist around the world.
+
+This regions table contains the region_id and their respective region_name values
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/b0b169ca-d90b-489f-b2d8-da937ea4b1e4)
+
+## Table 2: Customer Nodes
+Customers are randomly distributed across the nodes according to their region - this also specifies exactly which node contains both their cash and data.
+
+This random distribution changes frequently to reduce the risk of hackers getting into Data Bank’s system and stealing customer’s money and data!
+
+Below is a sample of the top 10 rows of the data_bank.customer_nodes
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/ede432c2-15c5-400c-9b9f-38afdf8db7a5)
+
+## Table 3: Customer Transactions
+This table stores all customer deposits, withdrawals and purchases made using their Data Bank debit card.
+![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/42a5e020-a7cf-423e-8fe4-86981d060b27)
+
+
+
+
