@@ -47,7 +47,7 @@ This table stores all customer deposits, withdrawals and purchases made using th
 
 
 
-# A. Customer Nodes Exploration
+# Section A. Customer Nodes Exploration
 
 ### 1.How many unique nodes are there on the Data Bank system?
 
