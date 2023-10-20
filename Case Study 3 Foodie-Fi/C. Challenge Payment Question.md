@@ -8,3 +8,14 @@ The Foodie-Fi team wants you to create a new payments table for the year 2020 th
 
 Example outputs for this table might look like the following:
 ![image](https://github.com/Latsan/8-Weekls-SQL-Case-Study/assets/78388641/fda13b4e-713e-43b1-8ad6-777be55ba634)
+---
+Honestly i haven't figured out the solution to this 
+
+```
+SELECT *,
+	COALESCE(LEAD("subscriptions".start_date) OVER (PARTITION BY customer_id ORDER BY "subscriptions".start_date), '2020-12-31') AS next_date
+FROM foodie_fi."subscriptions"
+JOIN foodie_fi."plans" USING (plan_id)
+WHERE DATE_PART('year',start_date) = 2020 AND plan_id NOT IN (0,4)
+ORDER BY 2
+```
